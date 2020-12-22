@@ -9,15 +9,21 @@ import { ProductCategory } from '../common/product-category';
   providedIn: 'root'
 })
 export class ProductService {
-
+  
   private baseUrl = 'http://localhost:8000/api/products';
   private categoryUrl = 'http://localhost:8000/api/product-category'
 
   constructor(private httpClient: HttpClient) { }
 
-  getProductList(categoryId: number): Observable<Product[]>{
+  getProduct(theProductId: number): Observable<Product> {
+    const productUrl = `${this.baseUrl}/${theProductId}`
 
+    return this.httpClient.get<Product>(productUrl);
+  }
+
+  getProductList(categoryId: number): Observable<Product[]>{
     const listProductsByCategoryUrl = `${this.baseUrl}/search/findByCategoryId?id=${categoryId}`
+    
     return this.getProducts(listProductsByCategoryUrl);
   }
 

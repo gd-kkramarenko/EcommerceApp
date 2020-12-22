@@ -24,6 +24,7 @@ body{
     -moz-osx-font-smoothing:grayscale
 }
 
+
 ul{
     margin:0
 }
@@ -723,6 +724,22 @@ table.table.table-bordered th{
 }
 .detail-section{
     margin-top:60px
+}
+
+.detail-img{
+    width: 30%;
+}
+
+.back-to-products-btn {
+	background:#232324;
+	border-radius:10px;
+	border:1px solid #252525;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-size:17px;
+	padding:5px 60px;
+	text-decoration:none;
 }
 /**/
 

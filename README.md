@@ -1,5 +1,6 @@
 # EcommerceApp
-Now the search field in the top is in a special angular component
-we can search for products by keyword
+Added Product Details Component
 
-product list component displays a message if no products were found
+Now we can view Product details by clicking on image/name of the product
+
+There's a button to redirect you from the product details to the previous page you were on
