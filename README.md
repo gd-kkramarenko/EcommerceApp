@@ -1,4 +1,5 @@
 # EcommerceApp
-Category ids are no more hardcoded - they are loaded dynamically from backend 
+Now the search field in the top is in a special angular component
+we can search for products by keyword
 
-Now if you add a new category in db, it wallautomatically appear in the menu sidebar
+product list component displays a message if no products were found
