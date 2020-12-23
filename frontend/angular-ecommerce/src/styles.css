@@ -773,6 +773,39 @@ a.primary-btn:hover{
   font-weight: bold;
 }
 
+.plus-minus-btn {
+	background-color:#14263d;
+	border-radius:3px;
+	border:1px solid #4e6096;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	padding:3px 8px;
+	text-decoration:none;
+}
+
+.plus-minus-btn:hover {
+	background-color:#335175;
+}
+
+.rmv-btn {
+    background-color:#14263d;
+	border-radius:3px;
+	border:1px solid #4e6096;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	padding:3px 41px;
+	text-decoration:none;
+}
+.rmv-btn:hover {
+    background-color:#335175;
+}
+
 /* 
  * ----------------------------
  * Footer section
