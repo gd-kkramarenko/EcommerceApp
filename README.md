@@ -1,6 +1,4 @@
 # EcommerceApp
-Added Product Details Component
+Added Pagination, works both for category search and keyword search
 
-Now we can view Product details by clicking on image/name of the product
-
-There's a button to redirect you from the product details to the previous page you were on
+SOme files were added to .gitignore
