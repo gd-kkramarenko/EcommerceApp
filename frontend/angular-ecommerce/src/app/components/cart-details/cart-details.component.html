@@ -55,6 +55,9 @@
                             <p>Total quantity: {{ totalQuantity }}</p>
                             <p>Shipping: FREE</p>
                             <p>Total price: {{ totalPrice | currency: 'USD' }}</p>
+                            <a routerLink="/checkout">
+                                <button class="checkout-btn">Checkout</button>
+                            </a>
                         </td>
                     </tr>
                 </table>

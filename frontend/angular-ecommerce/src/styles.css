@@ -806,6 +806,23 @@ a.primary-btn:hover{
     background-color:#335175;
 }
 
+.checkout-btn {
+    background-color:#14263d;
+	border-radius:3px;
+	border:1px solid #4e6096;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	padding:3px 41px;
+	text-decoration:none;
+}
+
+.checkout-btn:hover {
+    background-color:#335175;
+}
+
 /* 
  * ----------------------------
  * Footer section
@@ -990,7 +1007,7 @@ footer ul li{
         margin-right:15px
     }
         .main-content.page-m{
-        padding:10% 0!important
+        padding: 10% 30% 10% 5%
     }
     .header-mobile .navbar-mobile{
         display:none;
