@@ -1,2 +1,2 @@
 # EcommerceApp
-Added validation for all fields, such as required, min length, patterns for email, card number
+Added correct totals in the checkout, using BehaviorSubject in the ShoppingCart Service
