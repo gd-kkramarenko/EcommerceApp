@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Country } from 'src/app/common/country';
+import { Order } from 'src/app/common/order';
+import { OrderItem } from 'src/app/common/order-item';
+import { Purchase } from 'src/app/common/purchase';
 import { State } from 'src/app/common/state';
 import { CartService } from 'src/app/services/cart.service';
+import { CheckoutService } from 'src/app/services/checkout.service';
 import { EcommerceShopFormService } from 'src/app/services/ecommerce-shop-form.service';
 import { EcommerceShopValidators } from 'src/app/validators/ecommerce-shop-validators';
 
@@ -28,7 +33,9 @@ export class CheckoutComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private ecommerceShopFormService: EcommerceShopFormService,
-              private cartService: CartService){ }
+              private cartService: CartService,
+              private checkoutService: CheckoutService,
+              private router: Router){ }
 
   ngOnInit(): void {
 
@@ -116,11 +123,74 @@ export class CheckoutComponent implements OnInit {
     
   }
 
-  onSubmit(){
+  onSubmit() {
     // on submit click, check if some fields are invalid, if so, mark all as touched, it will invoke our error messages 
     if(this.checkoutFormGroup.invalid){
       this.checkoutFormGroup.markAllAsTouched();
+      return;
     }
+
+    // set up order
+    let order = new Order();
+    order.totalPrice = this.totalPrice;
+    order.totalQuantity = this.totalQuantity;
+
+    // get cart items
+    const cartItems = this.cartService.cartItems;
+
+    // create orderItems from cartItems
+    let orderItems: OrderItem[] = cartItems.map(tempItem => new OrderItem(tempItem));
+
+    // set up purchase
+    let purchase = new Purchase();
+
+    // populate purchase
+    purchase.customer = this.checkoutFormGroup.controls['customer'].value;
+
+    purchase.shippingAddress = this.checkoutFormGroup.controls['shippingAddress'].value;
+    const shippingCountry: Country = JSON.parse(JSON.stringify(purchase.shippingAddress.country));
+    const shippingState: State = JSON.parse(JSON.stringify(purchase.shippingAddress.state));
+    purchase.shippingAddress.country = shippingCountry.name;
+    purchase.shippingAddress.state = shippingState.name;
+
+    purchase.billingAddress = this.checkoutFormGroup.controls['billingAddress'].value;
+    const billingCountry: Country = JSON.parse(JSON.stringify(purchase.billingAddress.country));
+    const billingState: State = JSON.parse(JSON.stringify(purchase.billingAddress.state));
+    purchase.billingAddress.country = billingCountry.name;
+    purchase.billingAddress.state = billingState.name;
+
+    purchase.order = order;
+    purchase.orderItems = orderItems;
+
+    // call REST API via CheckoutService
+
+    this.checkoutService.placeOrder(purchase).subscribe({ 
+        next: response => {
+            alert(`Your order has been received.\nOreder tracking number: ${response.orderTrackingNumber}`);
+
+            this.resetCart();
+          },
+
+        error: err => {
+            alert(`There was an error: ${err.message}`)
+          }
+      }
+    );
+
+  }
+
+  resetCart() {
+    // resets cart data
+    this.cartService.cartItems = [];
+    this.cartService.totalPrice.next(0);
+    this.cartService.totalQuantity.next(0);
+
+    // reset the form data
+    this.checkoutFormGroup.reset();
+
+    // navigate back to products page
+    this.router.navigateByUrl("/products");
+
   }
 
   handleMonthsAndYears() {
