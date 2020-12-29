@@ -1,10 +1,12 @@
 # EcommerceApp
-Now we can save the order in the database(backend):
+RELEASE 2.0 ready
 
-created 4 new tables in db, entities for them, repository for Customer,
-service and controller.
+Added all the functionalities from release plan:
 
-We have http://localhost:8000/api/checkout/purchase endpoint, accepting http POST with JSON Body of DTO
-
-We need only 1 JpaRepo for Customer, since through customer we may access any entities, and we use cascading to save all the related info, such as Items, order, etc. as we save Customer to db.
-Cascading will handle saving all related entities 
+Shop template integrated,
+we can search for products by category or by keyword,
+added pagination,
+added master view for product,
+created shopping cart, we can put items in it, view totals, modify quantity of items,
+created checkout page with form for customer info.
+As user clicks purchase button, all info goes to backend and gets stored in db, order tracking number is returned to the client in a pop-up window.

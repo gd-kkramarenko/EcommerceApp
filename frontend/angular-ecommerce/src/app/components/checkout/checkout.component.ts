@@ -28,8 +28,8 @@ export class CheckoutComponent implements OnInit {
 
   countries: Country[] = [];
 
-  shippingAdressStates: State[] = [];
-  billingAdressStates: State[] = [];
+  shippingAddressStates: State[] = [];
+  billingAddressStates: State[] = [];
 
   constructor(private formBuilder: FormBuilder,
               private ecommerceShopFormService: EcommerceShopFormService,
@@ -50,14 +50,14 @@ export class CheckoutComponent implements OnInit {
         email: new FormControl('', [Validators.required, 
                                     Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')])
       }),
-      shippingAdress: this.formBuilder.group({
+      shippingAddress: this.formBuilder.group({
         country: new FormControl('', Validators.required),
         street: new FormControl('', [Validators.required, Validators.minLength(2), EcommerceShopValidators.notOnlyWhitespace]),
         city: new FormControl('', [Validators.required, Validators.minLength(2), EcommerceShopValidators.notOnlyWhitespace]),
         state: new FormControl('', Validators.required),
         zipCode: new FormControl('', [Validators.required, Validators.minLength(2), EcommerceShopValidators.notOnlyWhitespace])
       }),
-      billingAdress: this.formBuilder.group({
+      billingAddress: this.formBuilder.group({
         country: new FormControl('', Validators.required),
         street: new FormControl('', [Validators.required, Validators.minLength(2), EcommerceShopValidators.notOnlyWhitespace]),
         city: new FormControl('', [Validators.required, Validators.minLength(2), EcommerceShopValidators.notOnlyWhitespace]),
@@ -91,34 +91,34 @@ export class CheckoutComponent implements OnInit {
   get lastName() { return this.checkoutFormGroup.get('customer.lastName'); }
   get email() { return this.checkoutFormGroup.get('customer.email'); }
 
-  get shippingAdressStreet() { return this.checkoutFormGroup.get('shippingAdress.street'); }
-  get shippingAdressCity() { return this.checkoutFormGroup.get('shippingAdress.city'); }
-  get shippingAdressCountry() { return this.checkoutFormGroup.get('shippingAdress.country'); }
-  get shippingAdressState() { return this.checkoutFormGroup.get('shippingAdress.state'); }
-  get shippingAdressZipCode() { return this.checkoutFormGroup.get('shippingAdress.zipCode'); }
+  get shippingAddressStreet() { return this.checkoutFormGroup.get('shippingAddress.street'); }
+  get shippingAddressCity() { return this.checkoutFormGroup.get('shippingAddress.city'); }
+  get shippingAddressCountry() { return this.checkoutFormGroup.get('shippingAddress.country'); }
+  get shippingAddressState() { return this.checkoutFormGroup.get('shippingAddress.state'); }
+  get shippingAddressZipCode() { return this.checkoutFormGroup.get('shippingAddress.zipCode'); }
 
-  get billingAdressStreet() { return this.checkoutFormGroup.get('billingAdress.street'); }
-  get billingAdressCity() { return this.checkoutFormGroup.get('billingAdress.city'); }
-  get billingAdressCountry() { return this.checkoutFormGroup.get('billingAdress.country'); }
-  get billingAdressState() { return this.checkoutFormGroup.get('billingAdress.state'); }
-  get billingAdressZipCode() { return this.checkoutFormGroup.get('billingAdress.zipCode'); }
+  get billingAddressStreet() { return this.checkoutFormGroup.get('billingAddress.street'); }
+  get billingAddressCity() { return this.checkoutFormGroup.get('billingAddress.city'); }
+  get billingAddressCountry() { return this.checkoutFormGroup.get('billingAddress.country'); }
+  get billingAddressState() { return this.checkoutFormGroup.get('billingAddress.state'); }
+  get billingAddressZipCode() { return this.checkoutFormGroup.get('billingAddress.zipCode'); }
 
   get creditCardType() { return this.checkoutFormGroup.get('creditCard.cardType'); }
   get creditCardNameOnCard() { return this.checkoutFormGroup.get('creditCard.nameOnCard'); }
   get creditCardNumber() { return this.checkoutFormGroup.get('creditCard.cardNumber'); }
   get creditCardSecurityCode() { return this.checkoutFormGroup.get('creditCard.securityCode'); }
 
-  copyShippingAdressToBillingAdress(event){
+  copyShippingAddressToBillingAddress(event){
 
     // if checkbox is checked, copy data from shipping to billing
     if(event.target.checked){
-      this.checkoutFormGroup.controls.billingAdress.setValue(this.checkoutFormGroup.controls.shippingAdress.value);
+      this.checkoutFormGroup.controls.billingAddress.setValue(this.checkoutFormGroup.controls.shippingAddress.value);
 
-      // bug fix, so state for billing adress is assigned, if user checked "Billing same as shipping"
-      this.billingAdressStates = this.shippingAdressStates;
+      // bug fix, so state for billing address is assigned, if user checked "Billing same as shipping"
+      this.billingAddressStates = this.shippingAddressStates;
     } else {
-      this.checkoutFormGroup.controls.billingAdress.reset();
-      this.billingAdressStates = [];
+      this.checkoutFormGroup.controls.billingAddress.reset();
+      this.billingAddressStates = [];
     }
     
   }
@@ -224,10 +224,10 @@ export class CheckoutComponent implements OnInit {
 
     this.ecommerceShopFormService.getStates(countryCode).subscribe(data => {
 
-      if(formGroupName === 'shippingAdress'){
-        this.shippingAdressStates = data;
+      if(formGroupName === 'shippingAddress'){
+        this.shippingAddressStates = data;
       } else{
-        this.billingAdressStates = data;
+        this.billingAddressStates = data;
       }
 
       // select first state as default
