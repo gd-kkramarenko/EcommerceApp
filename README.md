@@ -1,12 +1,6 @@
 # EcommerceApp
-RELEASE 2.0 ready
+Added tracking of order status by orderTrackingNumber
 
-Added all the functionalities from release plan:
+Add order status handling in backend: "created" on init, after 24h - "processing", +24h - "shipping", +24h - "completed" 
 
-Shop template integrated,
-we can search for products by category or by keyword,
-added pagination,
-added master view for product,
-created shopping cart, we can put items in it, view totals, modify quantity of items,
-created checkout page with form for customer info.
-As user clicks purchase button, all info goes to backend and gets stored in db, order tracking number is returned to the client in a pop-up window.
+Added progress bar for order based on its status

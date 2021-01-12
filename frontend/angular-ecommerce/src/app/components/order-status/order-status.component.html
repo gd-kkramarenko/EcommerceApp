@@ -1,0 +1,125 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
+<div class="order-tracking">
+
+    <!-- If bad request happened(not existing tracking number), show alert -->
+    <div *ngIf="requestStatusCode != 200" class="alert alert-warning col-md-12" role="alert">
+        This Tracking Number have not been found.
+    </div>
+
+    <!-- ngIf will show this container with order info only if the tracking number is correct, so request is OK -->
+    <div *ngIf="requestStatusCode == 200" class="container padding-bottom-3x mb-10">
+        <div class="card mb-3">
+          <div class="p-4 text-center text-white text-lg bg-dark rounded-top"><span class="text-uppercase">Order Tracking Number    -    {{orderTrackingNumber}}</span></div>
+          <div class="d-flex flex-wrap flex-sm-nowrap justify-content-between py-3 px-2 bg-secondary text-white">
+            <div class="w-100 text-center py-1 px-2">
+                <span class="text-medium">Customer:<br>{{orderDetails.customer.firstName}} {{orderDetails.customer.lastName}} {{orderDetails.customer.email}}</span>
+            </div>
+            <div class="w-100 text-center py-1 px-2">
+                <span class="text-medium">Shipping Address:<br>{{orderDetails.shippingAddress.country}} {{orderDetails.shippingAddress.state}} {{orderDetails.shippingAddress.city}} {{orderDetails.shippingAddress.street}} {{orderDetails.shippingAddress.zipCode}}</span>
+            </div>
+            <div class="w-100 text-center py-1 px-2">
+                <span class="text-medium">Status:<br>{{orderStatus}}</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="steps d-flex flex-wrap flex-sm-nowrap justify-content-between padding-top-2x padding-bottom-1x">
+              <div class="step completed">
+                <div class="step-icon-wrap">
+                  <div class="step-icon"><i class="pe-7s-cart"></i></div>
+                </div>
+                <h4 class="step-title">Order Created</h4>
+              </div>
+
+              <!-- TODO add ngIf to show step/step completed based on order status -->
+              <div *ngIf="orderStatus === 'PROCESSING' || orderStatus === 'SHIPPING' || orderStatus === 'COMPLETED'"  class="step completed">
+                <div class="step-icon-wrap">
+                  <div class="step-icon"><i class="pe-7s-config"></i></div>
+                </div>
+                <h4 class="step-title">Processing Order</h4>
+              </div>
+              <div *ngIf="orderStatus === 'CREATED'"  class="step">
+                <div class="step-icon-wrap">
+                  <div class="step-icon"><i class="pe-7s-config"></i></div>
+                </div>
+                <h4 class="step-title">Processing Order</h4>
+              </div>
+
+              <div *ngIf="orderStatus === 'SHIPPING' || orderStatus === 'COMPLETED'" class="step completed">
+                <div class="step-icon-wrap">
+                  <div class="step-icon"><i class="pe-7s-car"></i></div>
+                </div>
+                <h4 class="step-title">Shipping Order</h4>
+              </div>
+              <div *ngIf="orderStatus === 'CREATED' || orderStatus === 'PROCESSING'"  class="step">
+                <div class="step-icon-wrap">
+                  <div class="step-icon"><i class="pe-7s-config"></i></div>
+                </div>
+                <h4 class="step-title">Shipping Order</h4>
+              </div>
+
+              <div *ngIf="orderStatus === 'COMPLETED'" class="step completed">
+                <div class="step-icon-wrap">
+                  <div class="step-icon"><i class="pe-7s-home"></i></div>
+                </div>
+                <h4 class="step-title">Order Completed</h4>
+              </div>
+              <div *ngIf="orderStatus == 'CREATED' || orderStatus == 'PROCESSING' || orderStatus == 'SHIPPING'" class="step">
+                <div class="step-icon-wrap">
+                  <div class="step-icon"><i class="pe-7s-home"></i></div>
+                </div>
+                <h4 class="step-title">Order Completed</h4>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex flex-wrap flex-sm-nowrap justify-content-between py-3 px-2 bg-secondary text-white">ITEMS</div>
+
+          <table class="table table-bordered">
+            <tr>
+                <th scope="col" class="noborder aria-hidden" width="25%"> 
+                    Product Image
+                </th>
+                <th scope="col" class="noborder aria-hidden" width="45%"> 
+                    Product Detail
+                </th>
+                <th scope="col" class="noborder aria-hidden" width="30%"> 
+                    Product Subtotal
+                </th>
+                
+            </tr>
+            <tr *ngFor="let tempOrderItem of orderDetails.orderItems">
+                <td>
+                    <img src="{{ tempOrderItem.imageUrl }}" class="img-responsive" width="150px"/>
+                </td>
+                <td>
+                    <p>{{ tempOrderItem.name }}</p>
+                    <p>{{ tempOrderItem.unitPrice | currency: 'USD' }}</p>
+                </td>
+                <td>
+                    <div class="items mb-2">
+                        <label>Quantity: {{ tempOrderItem.quantity }}</label>
+                        
+                    </div>
+
+
+
+                    <p class="mt-2">Subtotal: {{ tempOrderItem.unitPrice * tempOrderItem.quantity | currency: 'USD' }}</p>
+
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2"></td>
+                <td style="font-weight: bold">
+                    <p>Total quantity: {{ orderDetails.order.totalQuantity }}</p>
+                    <p>Total price: {{ orderDetails.order.totalPrice | currency: 'USD' }}</p>
+                </td>
+            </tr>
+          </table>
+
+
+
+        </div>
+
+    </div>
+</div>

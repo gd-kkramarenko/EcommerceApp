@@ -1,0 +1,15 @@
+<div class="order-tracking">
+    <div class="container-fluid">
+
+        <div class="tracking-input">
+            <input #trackingNumberInput type="text"
+            placeholder="Paste your order tracking number here ..."
+            class="au-input au-input-xl"
+            (keyup.enter)="showOrderDetails(trackingNumberInput.value)"/>
+
+            <button (click)="showOrderDetails(trackingNumberInput.value)" class="btn btn-outline-primary btn-rounded btn-sm">
+                Check details
+            </button>
+        </div>
+    </div>
+</div>

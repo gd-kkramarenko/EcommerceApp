@@ -1,5 +1,6 @@
 package kkramarenko.ecommerceapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -31,6 +32,8 @@ public class Address {
     @Column(name = "zipCode")
     private String zipCode;
 
+    //todo check if this works as intended(write data to db when posted, but excluded from JSON when get())
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToOne
     @PrimaryKeyJoinColumn
     private Order order;

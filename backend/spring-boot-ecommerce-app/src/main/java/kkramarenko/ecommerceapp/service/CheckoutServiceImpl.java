@@ -5,6 +5,7 @@ import kkramarenko.ecommerceapp.dto.PurchaseResponse;
 import kkramarenko.ecommerceapp.entity.Customer;
 import kkramarenko.ecommerceapp.entity.Order;
 import kkramarenko.ecommerceapp.entity.OrderItem;
+import kkramarenko.ecommerceapp.enums.OrderStatusEnum;
 import kkramarenko.ecommerceapp.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +40,8 @@ public class CheckoutServiceImpl implements CheckoutService {
         // populate order with billingAddress and shippingAddress
         order.setShippingAddress(purchase.getShippingAddress());
         order.setBillingAddress(purchase.getBillingAddress());
+        // set order status to "created"
+        order.setStatus(OrderStatusEnum.CREATED.toString());
 
         // populate customer with order
         Customer customer = purchase.getCustomer();

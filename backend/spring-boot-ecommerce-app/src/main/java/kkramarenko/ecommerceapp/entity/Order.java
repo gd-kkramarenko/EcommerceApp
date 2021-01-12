@@ -1,5 +1,6 @@
 package kkramarenko.ecommerceapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -42,17 +43,25 @@ public class Order {
     @UpdateTimestamp
     private Date lastUpdated;
 
+    //todo check if this works as intended(write data to db when posted, but excluded from JSON when get())
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
     private Set<OrderItem> orderItems = new HashSet<>();
 
+    //todo check if this works as intended(write data to db when posted, but excluded from JSON when get())
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
+    //todo check if this works as intended(write data to db when posted, but excluded from JSON when get())
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "shipping_address_id", referencedColumnName = "id")
     private Address shippingAddress;
 
+    //todo check if this works as intended(write data to db when posted, but excluded from JSON when get())
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "billing_address_id", referencedColumnName = "id")
     private Address billingAddress;

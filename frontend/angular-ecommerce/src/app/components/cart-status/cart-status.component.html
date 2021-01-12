@@ -1,4 +1,7 @@
 <div class="cart-area d-n">
+    <a routerLink="/order-tracking-search">
+        <button class="btn btn-primary btn-sm mb-4">Check Order Status</button>
+    </a>
     <a routerLink="/cart-details">
       <div class="total">{{ totalPrice | currency: 'USD' }}
           <span>{{ totalQuantity }}</span> </div>

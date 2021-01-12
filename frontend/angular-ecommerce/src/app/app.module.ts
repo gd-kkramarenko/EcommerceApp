@@ -20,10 +20,14 @@ import { LoginStatusComponent } from './components/login-status/login-status.com
 
 
 import { from } from 'rxjs';
+import { OrderStatusComponent } from './components/order-status/order-status.component';
+import { OrderTrackingSearchFormComponent } from './components/order-tracking-search-form/order-tracking-search-form.component';
 
 
 
 const routes: Routes =[
+  {path: 'order-details/:orderTrackingNumber', component: OrderStatusComponent},
+  {path: 'order-tracking-search', component: OrderTrackingSearchFormComponent},
   {path: 'checkout', component: CheckoutComponent},
   {path: 'cart-details', component: CartDetailsComponent},
   {path: 'products/:id', component: ProductDetailsComponent},
@@ -45,7 +49,9 @@ const routes: Routes =[
     CartDetailsComponent,
     CheckoutComponent,
     LoginComponent,
-    LoginStatusComponent
+    LoginStatusComponent,
+    OrderStatusComponent,
+    OrderTrackingSearchFormComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
